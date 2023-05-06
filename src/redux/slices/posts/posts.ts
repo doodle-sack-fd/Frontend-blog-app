@@ -1,11 +1,12 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
 	fetchPosts,
 	fetchRemovePost,
 	fetchTags,
-} from '../actions/action.creators';
+} from '../../actions/action.creators';
+import { IPostSlice } from './types.post';
 
-const initialState = {
+const initialState: IPostSlice = {
 	posts: {
 		items: [],
 		status: 'loading',
@@ -50,11 +51,14 @@ export const postsSlice = createSlice({
 		});
 
 		// TODO: DELETE POST
-		builder.addCase(fetchRemovePost.pending, (state, action) => {
-			state.posts.items = state.posts.items.filter(
-				item => item._id !== action.meta.arg,
-			);
-		});
+		builder.addCase(
+			fetchRemovePost.fulfilled,
+			(state, action: PayloadAction<any>) => {
+				state.posts.items = state.posts.items.filter(
+					item => item._id !== action.meta.arg,
+				);
+			},
+		);
 		builder.addCase(fetchRemovePost.rejected, state => {
 			state.posts.status = 'error';
 		});

@@ -1,6 +1,6 @@
 import { AddPost } from '../pages/AddPost/index.jsx';
-import { FullPost } from '../pages/FullPost';
-import { Home } from '../pages/Home';
+import { FullPost } from '../pages/FullPost.jsx';
+import { Home } from '../pages/Home.jsx';
 import { Login } from '../pages/Login/index.jsx';
 import { Registration } from '../pages/Registration/index.jsx';
 

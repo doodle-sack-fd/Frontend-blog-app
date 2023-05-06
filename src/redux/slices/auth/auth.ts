@@ -1,11 +1,14 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import {
 	fetchAuthMe,
 	fetchRegister,
 	fetchUserData,
-} from '../actions/action.creators';
+} from '../../actions/action.creators';
+import { RootState } from '../../store';
+import { IUser } from '../posts/types.post';
+import { IUserAuth } from './types.auth';
 
-const initialState = {
+const initialState: IUserAuth = {
 	data: null,
 	status: 'loading',
 };
@@ -35,10 +38,13 @@ export const authSlice = createSlice({
 			state.status = 'pending';
 			state.data = null;
 		});
-		builder.addCase(fetchAuthMe.fulfilled, (state, action) => {
-			state.status = 'fulfilled';
-			state.data = action.payload;
-		});
+		builder.addCase(
+			fetchAuthMe.fulfilled,
+			(state, action: PayloadAction<IUser>) => {
+				state.status = 'fulfilled';
+				state.data = action.payload;
+			},
+		);
 		builder.addCase(fetchAuthMe.rejected, state => {
 			state.status = 'error';
 			state.data = null;
@@ -47,10 +53,13 @@ export const authSlice = createSlice({
 			state.status = 'pending';
 			state.data = null;
 		});
-		builder.addCase(fetchRegister.fulfilled, (state, action) => {
-			state.status = 'fulfilled';
-			state.data = action.payload;
-		});
+		builder.addCase(
+			fetchRegister.fulfilled,
+			(state, action: PayloadAction<IUser>) => {
+				state.status = 'fulfilled';
+				state.data = action.payload;
+			},
+		);
 		builder.addCase(fetchRegister.rejected, state => {
 			state.status = 'error';
 			state.data = null;
@@ -58,6 +67,6 @@ export const authSlice = createSlice({
 	},
 });
 
-export const selectIsAuth = state => !!state.auth.data;
-export const selectData = state => state.auth.data;
+export const selectIsAuth = (state: RootState) => !!state.auth.data;
+export const selectData = (state: RootState) => state.auth.data;
 export const { logout } = authSlice.actions;

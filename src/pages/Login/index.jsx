@@ -2,12 +2,11 @@ import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { fetchUserData } from '../../redux/actions/action.creators';
-import { selectIsAuth } from '../../redux/slices/auth';
+import { selectIsAuth } from '../../redux/slices/auth/auth';
 import styles from './Login.module.scss';
 
 export const Login = () => {
