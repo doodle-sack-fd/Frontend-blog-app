@@ -1,10 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { IPostSlice, ITags } from '../../../types/types.global';
 import {
 	fetchPosts,
 	fetchRemovePost,
 	fetchTags,
 } from '../../actions/action.creators';
-import { IPostSlice } from './types.post';
 
 const initialState: IPostSlice = {
 	posts: {
@@ -41,24 +41,26 @@ export const postsSlice = createSlice({
 			state.tags.status = 'pending';
 			state.tags.items = [];
 		});
-		builder.addCase(fetchTags.fulfilled, (state, action) => {
-			state.tags.status = 'fulfilled';
-			state.tags.items = action.payload;
-		});
+		builder.addCase(
+			fetchTags.fulfilled,
+			(state, action: PayloadAction<ITags[]>) => {
+				state.tags.status = 'fulfilled';
+				state.tags.items = action.payload;
+			},
+		);
 		builder.addCase(fetchTags.rejected, state => {
 			state.tags.status = 'error';
 			state.tags.items = [];
 		});
 
 		// TODO: DELETE POST
-		builder.addCase(
-			fetchRemovePost.fulfilled,
-			(state, action: PayloadAction<any>) => {
-				state.posts.items = state.posts.items.filter(
-					item => item._id !== action.meta.arg,
-				);
-			},
-		);
+		builder.addCase(fetchRemovePost.fulfilled, (state, action) => {
+			state.posts.items = state.posts.items.filter(
+				item =>
+					typeof action.meta.arg !== 'undefined' &&
+					item._id !== action.meta.arg,
+			);
+		});
 		builder.addCase(fetchRemovePost.rejected, state => {
 			state.posts.status = 'error';
 		});

@@ -1,8 +1,4 @@
-import { AddPost } from '../pages/AddPost/index.jsx';
-import { FullPost } from '../pages/FullPost.jsx';
-import { Home } from '../pages/Home.jsx';
-import { Login } from '../pages/Login/index.jsx';
-import { Registration } from '../pages/Registration/index.jsx';
+import { AddPost, FullPost, Home, Login, Registration } from '../pages';
 
 export const routes = [
 	{

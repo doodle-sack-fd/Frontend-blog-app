@@ -1,12 +1,11 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { IUser, IUserAuth } from '../../../types/types.global';
 import {
 	fetchAuthMe,
 	fetchRegister,
 	fetchUserData,
 } from '../../actions/action.creators';
 import { RootState } from '../../store';
-import { IUser } from '../posts/types.post';
-import { IUserAuth } from './types.auth';
 
 const initialState: IUserAuth = {
 	data: null,

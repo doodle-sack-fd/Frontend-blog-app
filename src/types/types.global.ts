@@ -1,3 +1,5 @@
+/* POST SLICE */
+
 export interface IUser {
 	_id: string;
 	fullName: string;
@@ -22,6 +24,7 @@ export interface IPostItem {
 
 export interface ITags {
 	items: string[];
+	key?: string;
 }
 
 export interface IPostSlice {
@@ -33,4 +36,11 @@ export interface IPostSlice {
 		items: ITags[];
 		status: string;
 	};
+}
+
+/* AUTH SLICE */
+
+export interface IUserAuth {
+	data: IUser;
+	status: string;
 }

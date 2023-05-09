@@ -1,17 +1,20 @@
 import Grid from '@mui/material/Grid';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { TagsBlock } from '../components';
 import { CommentsBlock } from '../components/CommentsBlock';
 import { Post } from '../components/Post';
-import { TagsBlock } from '../components/TagsBlock';
 import { fetchPosts, fetchTags } from '../redux/actions/action.creators';
+import { RootState, useAppDispatch } from '../redux/store';
 
 export const Home = () => {
-	const dispatch = useDispatch();
-	const userData = useSelector(state => state.auth.data);
-	const { posts, tags } = useSelector(state => state.posts);
+	const dispatch = useAppDispatch();
+	const userData = useSelector((state: unknown) => (state as RootState)?.auth);
+	const { posts, tags } = useSelector(
+		(state: unknown) => (state as RootState)?.posts,
+	);
 	const isPostLoading = posts.status === 'loading';
 	const isTagLoading = posts.status === 'loading';
 
@@ -49,7 +52,7 @@ export const Home = () => {
 								viewsCount={obj.viewsCount}
 								commentsCount={3}
 								tags={obj.tags}
-								isEditable={userData?._id === obj.user._id}
+								isEditable={userData?.data._id === obj.user._id}
 							/>
 						),
 					)}
@@ -74,6 +77,7 @@ export const Home = () => {
 							},
 						]}
 						isLoading={false}
+						children={undefined}
 					/>
 				</Grid>
 			</Grid>

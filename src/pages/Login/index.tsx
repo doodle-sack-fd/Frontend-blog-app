@@ -3,14 +3,15 @@ import Paper from '@mui/material/Paper';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { fetchUserData } from '../../redux/actions/action.creators';
+import { ILogin, fetchUserData } from '../../redux/actions/action.creators';
 import { selectIsAuth } from '../../redux/slices/auth/auth';
+import { useAppDispatch } from '../../redux/store';
 import styles from './Login.module.scss';
 
-export const Login = () => {
-	const dispatch = useDispatch();
+export const Login = (): JSX.Element => {
+	const dispatch = useAppDispatch();
 	const isAuth = useSelector(selectIsAuth);
 	const {
 		register,
@@ -23,7 +24,7 @@ export const Login = () => {
 		},
 		mode: 'onChange',
 	});
-	const onSubmit = async data => {
+	const onSubmit = async (data: ILogin) => {
 		const res = await dispatch(fetchUserData(data));
 		if (!res.payload) {
 			return alert('Не удалось авторизироваться');

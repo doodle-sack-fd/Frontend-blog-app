@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { useParams } from 'react-router-dom';
 import axios from '../axios.js';
-import { Index } from '../components/AddComment';
-import { CommentsBlock } from '../components/CommentsBlock';
-import { Post } from '../components/Post';
+import { AddComment, CommentsBlock, Post } from '../components/index.js';
 
-export const FullPost = () => {
-	const [data, setData] = useState();
+export const FullPost = (): JSX.Element => {
+	const [data, setData] = useState(null);
+	console.log(data);
 	const [isLoading, setIsLoading] = useState(true);
 	const { id } = useParams();
 	useEffect(() => {
@@ -27,7 +26,7 @@ export const FullPost = () => {
 	return (
 		<>
 			<Post
-				id={data._id}
+				_id={data._id}
 				title={data.title}
 				imageUrl={
 					data.imageUrl
@@ -62,7 +61,7 @@ export const FullPost = () => {
 				]}
 				isLoading={false}
 			>
-				<Index />
+				<AddComment />
 			</CommentsBlock>
 		</>
 	);

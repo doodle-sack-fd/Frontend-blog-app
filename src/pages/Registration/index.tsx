@@ -7,12 +7,13 @@ import Typography from '@mui/material/Typography';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
-import { fetchRegister } from '../../redux/actions/action.creators';
+import { IRegister, fetchRegister } from '../../redux/actions/action.creators';
 import { selectIsAuth } from '../../redux/slices/auth/auth';
+import { AppDispatch } from '../../redux/store';
 import styles from './Login.module.scss';
 
-export const Registration = () => {
-	const dispatch = useDispatch();
+export const Registration = (): JSX.Element => {
+	const dispatch = useDispatch<AppDispatch>();
 	const isAuth = useSelector(selectIsAuth);
 	const {
 		register,
@@ -27,7 +28,7 @@ export const Registration = () => {
 		mode: 'onChange',
 	});
 
-	const onSubmit = async data => {
+	const onSubmit = async (data: IRegister) => {
 		const res = await dispatch(fetchRegister(data));
 		if (!res.payload) {
 			return alert('Не удалось зарегистрироваться');
@@ -80,7 +81,7 @@ export const Registration = () => {
 				/>
 				<Button
 					disabled={!isValid}
-					type="onSubmit"
+					type="submit"
 					size="large"
 					variant="contained"
 					fullWidth

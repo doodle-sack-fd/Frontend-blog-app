@@ -1,5 +1,3 @@
-import React from 'react';
-
 import TagIcon from '@mui/icons-material/Tag';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
